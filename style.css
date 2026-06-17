@@ -1,0 +1,175 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+
+    background:#eef3f5;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:100vh;
+
+}
+
+.container{
+
+    width:95%;
+
+    max-width:450px;
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+
+}
+
+h1{
+
+    text-align:center;
+
+    color:#009688;
+
+    margin-bottom:20px;
+
+}
+
+#tanggal,
+#jam{
+
+    text-align:center;
+
+    color:#666;
+
+    margin-bottom:5px;
+
+}
+
+select{
+
+    width:100%;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    border:1px solid #ddd;
+
+    margin-top:20px;
+
+    font-size:16px;
+
+}
+
+video{
+
+    width:100%;
+
+    height:280px;
+
+    margin-top:20px;
+
+    background:#000;
+
+    border-radius:12px;
+
+    object-fit:cover;
+
+}
+
+canvas{
+
+    display:none;
+
+}
+
+#preview{
+
+    width:100%;
+
+    margin-top:15px;
+
+    border-radius:12px;
+
+    display:none;
+
+}
+
+.button-group{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+
+.button-group button{
+
+    flex:1;
+
+}
+
+button{
+
+    border:none;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+}
+
+#btnFoto{
+
+    background:#1976d2;
+
+}
+
+#btnUlangi{
+
+    background:#757575;
+
+}
+
+#btnAbsen{
+
+    margin-top:20px;
+
+    width:100%;
+
+    background:#009688;
+
+}
+
+#hasil{
+
+    margin-top:20px;
+
+    text-align:center;
+
+    font-size:18px;
+
+    color:#009688;
+
+    font-weight:bold;
+
+}
