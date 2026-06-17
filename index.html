@@ -5,8 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>ABSENSI MY DENTIST</title>
 
@@ -18,29 +17,69 @@ content="width=device-width,initial-scale=1">
 
 <div class="container">
 
-<h1>🦷 MY DENTIST</h1>
+<div class="logo">
 
-<div id="tanggal"></div>
+🦷
 
-<div id="jam"></div>
+</div>
+
+<h1>
+
+MY DENTIST
+
+</h1>
+
+<div class="tanggal" id="tanggal">
+
+-
+
+</div>
+
+<div class="jam" id="jam">
+
+-
+
+</div>
 
 <select id="nama">
 
-<option value="">Memuat data...</option>
+<option value="">
+
+Pilih Karyawan
+
+</option>
 
 </select>
 
+<div class="kamera">
+
 <video
+
 id="video"
+
 autoplay
+
 playsinline
+
 muted>
 
 </video>
 
-<canvas id="canvas"></canvas>
+</div>
 
-<img id="preview">
+<canvas
+
+id="canvas"
+
+style="display:none;">
+
+</canvas>
+
+<img
+
+id="preview"
+
+style="display:none;">
 
 <div class="button-group">
 
@@ -50,7 +89,7 @@ muted>
 
 </button>
 
-<button id="btnUlangi">
+<button id="btnReset">
 
 🔄 Ulangi
 
@@ -60,11 +99,15 @@ muted>
 
 <button id="btnAbsen">
 
-✅ Absen Masuk
+✅ ABSEN
 
 </button>
 
-<div id="hasil"></div>
+<div id="status">
+
+Siap Absen
+
+</div>
 
 </div>
 
