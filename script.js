@@ -127,6 +127,64 @@ async function aktifkanKamera() {
 }
 
 // =====================================
+// AMBIL FOTO
+// =====================================
+
+function ambilFoto() {
+
+    const video = document.getElementById("video");
+
+    const canvas = document.getElementById("canvas");
+
+    const preview = document.getElementById("preview");
+
+    if (!video.videoWidth) {
+
+        alert("Kamera belum siap.");
+
+        return;
+
+    }
+
+    canvas.width = video.videoWidth;
+
+    canvas.height = video.videoHeight;
+
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(video, 0, 0);
+
+    fotoBase64 = canvas.toDataURL("image/jpeg", 0.9);
+
+    preview.src = fotoBase64;
+
+    preview.style.display = "block";
+
+    document.getElementById("status").innerHTML =
+        "📷 Foto berhasil diambil";
+
+}
+
+// =====================================
+// RESET FOTO
+// =====================================
+
+function resetFoto() {
+
+    fotoBase64 = "";
+
+    const preview = document.getElementById("preview");
+
+    preview.src = "";
+
+    preview.style.display = "none";
+
+    document.getElementById("status").innerHTML =
+        "🟢 Siap mengambil foto";
+
+}
+
+// =====================================
 // SAAT HALAMAN DIBUKA
 // =====================================
 
@@ -139,6 +197,12 @@ window.onload = async function () {
     await loadKaryawan();
 
     await aktifkanKamera();
+
+    document.getElementById("btnFoto")
+        .addEventListener("click", ambilFoto);
+
+    document.getElementById("btnReset")
+        .addEventListener("click", resetFoto);
 
     document.getElementById("status").innerHTML =
         "🟢 Siap Absen";
