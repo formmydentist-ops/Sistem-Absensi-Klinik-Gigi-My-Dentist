@@ -3,6 +3,7 @@
 // =====================================
 
 let fotoBase64 = "";
+let stream = null;
 
 // =====================================
 // JAM & TANGGAL
@@ -74,16 +75,70 @@ async function loadKaryawan() {
 }
 
 // =====================================
+// KAMERA LIVE
+// =====================================
+
+async function aktifkanKamera() {
+
+    if (!navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia) {
+
+        document.getElementById("status").innerHTML =
+            "🔴 Browser tidak mendukung kamera";
+
+        return;
+
+    }
+
+    try {
+
+        stream = await navigator.mediaDevices.getUserMedia({
+
+            video: {
+
+                facingMode: "user"
+
+            },
+
+            audio: false
+
+        });
+
+        const video = document.getElementById("video");
+
+        video.srcObject = stream;
+
+        await video.play();
+
+        document.getElementById("status").innerHTML =
+            "🟢 Kamera Aktif";
+
+    }
+
+    catch (err) {
+
+        console.log(err);
+
+        document.getElementById("status").innerHTML =
+            "🔴 Kamera gagal diakses";
+
+    }
+
+}
+
+// =====================================
 // SAAT HALAMAN DIBUKA
 // =====================================
 
-window.onload = function () {
+window.onload = async function () {
 
     updateJam();
 
     setInterval(updateJam, 1000);
 
-    loadKaryawan();
+    await loadKaryawan();
+
+    await aktifkanKamera();
 
     document.getElementById("status").innerHTML =
         "🟢 Siap Absen";
