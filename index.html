@@ -42,73 +42,44 @@ MY DENTIST
 </div>
 
 <select id="nama">
-
-<option value="">
-
-Pilih Karyawan
-
-</option>
-
+    <option value="">Pilih Karyawan</option>
 </select>
 
 <div class="kamera">
-
-<video
-
-id="video"
-
-autoplay
-
-playsinline
-
-muted>
-
-</video>
-
+    <video
+        id="video"
+        autoplay
+        playsinline
+        muted>
+    </video>
 </div>
 
-<canvas
-
-id="canvas"
-
-style="display:none;">
-
-</canvas>
+<canvas id="canvas" style="display:none;"></canvas>
 
 <img
-
-id="preview"
-
-style="display:none;">
+    id="preview"
+    src=""
+    alt="Preview Foto"
+    style="display:none;width:100%;margin-top:15px;border-radius:12px;"/>
 
 <div class="button-group">
 
-<button id="btnFoto">
+    <button type="button" id="btnFoto">
+        📷 Ambil Foto
+    </button>
 
-📷 Ambil Foto
-
-</button>
-
-<button id="btnReset">
-
-🔄 Ulangi
-
-</button>
+    <button type="button" id="btnReset">
+        🔄 Ulangi
+    </button>
 
 </div>
 
-<button id="btnAbsen">
-
-✅ ABSEN
-
+<button type="button" id="btnAbsen">
+    ✅ ABSEN
 </button>
 
 <div id="status">
-
-Siap Absen
-
-</div>
-
+    🟢 Siap Absen
 </div>
 
 <script src="config.js"></script>
