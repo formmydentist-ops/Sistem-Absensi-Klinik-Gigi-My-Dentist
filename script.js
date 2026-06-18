@@ -24,7 +24,6 @@ function updateJam() {
         now.toLocaleTimeString("id-ID");
 
 }
-
 // =====================================
 // LOAD KARYAWAN
 // =====================================
