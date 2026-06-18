@@ -25,6 +25,7 @@ function updateJam() {
         now.toLocaleTimeString("id-ID");
 
 }
+
 // =====================================
 // LOAD KARYAWAN
 // =====================================
@@ -34,9 +35,7 @@ async function loadKaryawan() {
     try {
 
         const response = await fetch(
-
             CONFIG.API_URL + "?action=getKaryawan"
-
         );
 
         const data = await response.json();
@@ -61,6 +60,17 @@ async function loadKaryawan() {
         });
 
     }
+
+    catch(error){
+
+        console.log(error);
+
+        document.getElementById("status").innerHTML =
+            "🔴 Gagal memuat data karyawan";
+
+    }
+
+}
 
 // =====================================
 // KAMERA LIVE
@@ -101,23 +111,12 @@ async function aktifkanKamera() {
 
     }
 
-    catch (error) {
-
-        console.log(error);
-
-        document.getElementById("status").innerHTML =
-            "🔴 Kamera tidak dapat diakses";
-
-    }
-
-}
-
     catch(error){
 
         console.log(error);
 
         document.getElementById("status").innerHTML =
-            "🔴 Gagal memuat data karyawan";
+            "🔴 Kamera tidak dapat diakses";
 
     }
 
@@ -133,13 +132,21 @@ function ambilFoto() {
 
     const canvas = document.getElementById("canvas");
 
+    if (!video.videoWidth) {
+
+        alert("Kamera belum siap.");
+
+        return;
+
+    }
+
     canvas.width = video.videoWidth;
 
     canvas.height = video.videoHeight;
 
     const ctx = canvas.getContext("2d");
 
-    ctx.drawImage(video, 0, 0);
+    ctx.drawImage(video,0,0);
 
     fotoBase64 = canvas.toDataURL("image/png");
 
@@ -155,9 +162,11 @@ function ambilFoto() {
 // RESET FOTO
 // =====================================
 
-function resetFoto() {
+function resetFoto(){
 
     fotoBase64 = "";
+
+    document.getElementById("preview").src = "";
 
     document.getElementById("preview").style.display = "none";
 
@@ -167,23 +176,21 @@ function resetFoto() {
 // SAAT HALAMAN DIBUKA
 // =====================================
 
-window.onload = function () {
+window.onload = function(){
 
     updateJam();
 
-    setInterval(updateJam, 1000);
+    setInterval(updateJam,1000);
 
     loadKaryawan();
 
     aktifkanKamera();
 
     document.getElementById("btnFoto")
-
-        .addEventListener("click", ambilFoto);
+        .addEventListener("click",ambilFoto);
 
     document.getElementById("btnReset")
-
-        .addEventListener("click", resetFoto);
+        .addEventListener("click",resetFoto);
 
     document.getElementById("status").innerHTML =
         "🟢 Siap Absen";
