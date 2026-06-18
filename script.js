@@ -3,7 +3,6 @@
 // =====================================
 
 let fotoBase64 = "";
-let stream = null;
 
 // =====================================
 // JAM & TANGGAL
@@ -35,7 +34,9 @@ async function loadKaryawan() {
     try {
 
         const response = await fetch(
+
             CONFIG.API_URL + "?action=getKaryawan"
+
         );
 
         const data = await response.json();
@@ -73,124 +74,16 @@ async function loadKaryawan() {
 }
 
 // =====================================
-// KAMERA LIVE
-// =====================================
-
-async function aktifkanKamera() {
-
-    try {
-
-        stream = await navigator.mediaDevices.getUserMedia({
-
-            video: {
-
-                facingMode: "user",
-
-                width: {
-                    ideal: 720
-                },
-
-                height: {
-                    ideal: 1280
-                }
-
-            },
-
-            audio: false
-
-        });
-
-        const video = document.getElementById("video");
-
-        video.srcObject = stream;
-
-        await video.play();
-
-        document.getElementById("status").innerHTML =
-            "🟢 Kamera Aktif";
-
-    }
-
-    catch(error){
-
-        console.log(error);
-
-        document.getElementById("status").innerHTML =
-            "🔴 Kamera tidak dapat diakses";
-
-    }
-
-}
-
-// =====================================
-// AMBIL FOTO
-// =====================================
-
-function ambilFoto() {
-
-    const video = document.getElementById("video");
-
-    const canvas = document.getElementById("canvas");
-
-    if (!video.videoWidth) {
-
-        alert("Kamera belum siap.");
-
-        return;
-
-    }
-
-    canvas.width = video.videoWidth;
-
-    canvas.height = video.videoHeight;
-
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(video,0,0);
-
-    fotoBase64 = canvas.toDataURL("image/png");
-
-    const preview = document.getElementById("preview");
-
-    preview.src = fotoBase64;
-
-    preview.style.display = "block";
-
-}
-
-// =====================================
-// RESET FOTO
-// =====================================
-
-function resetFoto(){
-
-    fotoBase64 = "";
-
-    document.getElementById("preview").src = "";
-
-    document.getElementById("preview").style.display = "none";
-
-}
-
-// =====================================
 // SAAT HALAMAN DIBUKA
 // =====================================
 
-window.onload = function(){
+window.onload = function () {
 
     updateJam();
 
-    setInterval(updateJam,1000);
+    setInterval(updateJam, 1000);
 
     loadKaryawan();
-
-    aktifkanKamera();
-
-    document.getElementById("btnFoto")
-        .addEventListener("click",ambilFoto);
-
-    document.getElementById("btnReset")
-        .addEventListener("click",resetFoto);
 
     document.getElementById("status").innerHTML =
         "🟢 Siap Absen";
