@@ -198,11 +198,11 @@ window.onload = async function () {
 
     await aktifkanKamera();
 
-    document.getElementById("btnFoto")
-        .addEventListener("click", ambilFoto);
+    console.log("Window Loaded");
 
-    document.getElementById("btnReset")
-        .addEventListener("click", resetFoto);
+    document.getElementById("btnFoto").onclick = ambilFoto;
+
+    document.getElementById("btnReset").onclick = resetFoto;
 
     document.getElementById("status").innerHTML =
         "🟢 Siap Absen";
