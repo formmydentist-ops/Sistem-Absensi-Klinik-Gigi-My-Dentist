@@ -3,6 +3,7 @@
 // =====================================
 
 let fotoBase64 = "";
+let stream = null;
 
 // =====================================
 // JAM & TANGGAL
@@ -61,6 +62,56 @@ async function loadKaryawan() {
 
     }
 
+// =====================================
+// KAMERA LIVE
+// =====================================
+
+async function aktifkanKamera() {
+
+    try {
+
+        stream = await navigator.mediaDevices.getUserMedia({
+
+            video: {
+
+                facingMode: "user",
+
+                width: {
+                    ideal: 720
+                },
+
+                height: {
+                    ideal: 1280
+                }
+
+            },
+
+            audio: false
+
+        });
+
+        const video = document.getElementById("video");
+
+        video.srcObject = stream;
+
+        await video.play();
+
+        document.getElementById("status").innerHTML =
+            "🟢 Kamera Aktif";
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+        document.getElementById("status").innerHTML =
+            "🔴 Kamera tidak dapat diakses";
+
+    }
+
+}
+
     catch(error){
 
         console.log(error);
@@ -69,6 +120,46 @@ async function loadKaryawan() {
             "🔴 Gagal memuat data karyawan";
 
     }
+
+}
+
+// =====================================
+// AMBIL FOTO
+// =====================================
+
+function ambilFoto() {
+
+    const video = document.getElementById("video");
+
+    const canvas = document.getElementById("canvas");
+
+    canvas.width = video.videoWidth;
+
+    canvas.height = video.videoHeight;
+
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(video, 0, 0);
+
+    fotoBase64 = canvas.toDataURL("image/png");
+
+    const preview = document.getElementById("preview");
+
+    preview.src = fotoBase64;
+
+    preview.style.display = "block";
+
+}
+
+// =====================================
+// RESET FOTO
+// =====================================
+
+function resetFoto() {
+
+    fotoBase64 = "";
+
+    document.getElementById("preview").style.display = "none";
 
 }
 
@@ -83,6 +174,16 @@ window.onload = function () {
     setInterval(updateJam, 1000);
 
     loadKaryawan();
+
+    aktifkanKamera();
+
+    document.getElementById("btnFoto")
+
+        .addEventListener("click", ambilFoto);
+
+    document.getElementById("btnReset")
+
+        .addEventListener("click", resetFoto);
 
     document.getElementById("status").innerHTML =
         "🟢 Siap Absen";
