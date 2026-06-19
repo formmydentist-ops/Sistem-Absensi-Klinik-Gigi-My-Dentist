@@ -191,6 +191,8 @@ function ambilFoto() {
 
     document.getElementById("status").innerHTML =
     "📷 Foto berhasil diambil";
+
+    updateButton();
     
     cekForm();
 
@@ -214,6 +216,8 @@ function resetFoto() {
 
     document.getElementById("status").innerHTML =
         "🟢 Siap mengambil foto";
+
+    updateButton();
     
     cekForm();
 
@@ -248,6 +252,60 @@ function cekForm() {
         btn.style.opacity = "0.5";
 
         btn.style.cursor = "not-allowed";
+
+    }
+
+}
+
+// =====================================
+// CEK BUTTON
+// =====================================
+
+function updateButton() {
+
+    const nama = document.getElementById("nama").value;
+
+    const btnFoto = document.getElementById("btnFoto");
+
+    const btnReset = document.getElementById("btnReset");
+
+    const btnAbsen = document.getElementById("btnAbsen");
+
+    // ==========================
+    // Belum pilih karyawan
+    // ==========================
+
+    if (nama === "") {
+
+        btnFoto.disabled = true;
+        btnReset.disabled = true;
+        btnAbsen.disabled = true;
+
+        return;
+
+    }
+
+    // ==========================
+    // Sudah pilih karyawan
+    // ==========================
+
+    btnFoto.disabled = false;
+
+    // ==========================
+    // Sudah ambil foto
+    // ==========================
+
+    if (fotoBase64 !== "") {
+
+        btnReset.disabled = false;
+        btnAbsen.disabled = false;
+
+    }
+
+    else {
+
+        btnReset.disabled = true;
+        btnAbsen.disabled = true;
 
     }
 
@@ -437,9 +495,9 @@ window.onload = async function () {
     document.getElementById("btnReset").onclick =
         resetFoto;
     document.getElementById("nama").onchange =
-    cekForm;
-    
-    cekForm();
+    updateButton;
+
+updateButton();
 
     document.getElementById("btnAbsen").onclick =
         kirimAbsen;
