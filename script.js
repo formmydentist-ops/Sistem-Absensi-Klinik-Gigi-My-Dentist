@@ -370,7 +370,7 @@ async function kirimAbsen() {
 
     const status = document.getElementById("status");
 
-    if (nama == "") {
+    if (nama === "") {
 
         alert("Pilih karyawan terlebih dahulu.");
 
@@ -378,7 +378,7 @@ async function kirimAbsen() {
 
     }
 
-    if (fotoBase64 == "") {
+    if (fotoBase64 === "") {
 
         alert("Silakan ambil foto terlebih dahulu.");
 
@@ -392,11 +392,13 @@ async function kirimAbsen() {
     const jabatan =
         option.dataset.jabatan;
 
-    document.getElementById("btnAbsen").disabled = true;
+    const btnAbsen =
+        document.getElementById("btnAbsen");
 
-    document.getElementById("btnAbsen").innerHTML =
-        "⏳ Menyimpan...";
-    
+    btnAbsen.disabled = true;
+
+    btnAbsen.innerHTML = "⏳ Menyimpan...";
+
     showLoading("📤 Mengupload foto...");
 
     status.innerHTML =
@@ -406,77 +408,74 @@ async function kirimAbsen() {
 
         const formData = new FormData();
 
-formData.append("nama", nama);
+        formData.append("nama", nama);
 
-formData.append("jabatan", jabatan);
+        formData.append("jabatan", jabatan);
 
-formData.append("foto", fotoBase64);
+        formData.append("foto", fotoBase64);
 
-const response = await fetch(
+        const response = await fetch(
 
-    CONFIG.API_URL,
+            CONFIG.API_URL,
 
-    {
+            {
 
-        method: "POST",
+                method: "POST",
 
-        body: formData
+                body: formData
 
-    }
+            }
 
-);
+        );
 
-        const hasil =
-            await response.json();
+        const hasil = await response.json();
 
         console.log(hasil);
 
         if (hasil.success) {
 
-    showLoading("✅ Absensi berhasil");
+            showLoading("✅ Absensi berhasil");
 
-status.innerHTML =
-    "✅ " + hasil.message;
+            status.innerHTML =
+                "✅ " + hasil.message;
 
-setTimeout(function(){
+            setTimeout(function () {
 
-    hideLoading();
+                hideLoading();
 
-    resetForm();
+                resetForm();
 
-},2000);
+            }, 2000);
 
-}
+        }
 
         else {
 
-    hideLoading();
+            hideLoading();
 
-    status.innerHTML =
-        "❌ " + hasil.message;
+            status.innerHTML =
+                "❌ " + hasil.message;
 
-}
+        }
 
     }
 
     catch (err) {
 
-    catch(err){
+        hideLoading();
 
-    hideLoading();
+        console.log(err);
 
-    console.log(err);
+        alert(err);
 
-    alert(err);
+        status.innerHTML =
+            "❌ " + err.toString();
 
-    status.innerHTML =
-        err.toString();
+    }
 
-}
+    btnAbsen.disabled = false;
 
-    document.getElementById("btnAbsen").disabled = false;
-
-    document.getElementById("btnAbsen").innerHTML =
+    btnAbsen.innerHTML =
         "✅ ABSEN";
 
 }
