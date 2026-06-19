@@ -113,13 +113,9 @@ select{
 
 video{
 
-    video{
-
     width:100%;
 
     display:block;
-
-    transform: scaleX(-1);
 
 }
 
@@ -127,11 +123,9 @@ video{
 
     width:100%;
 
-    display:none;
-
     margin-top:15px;
 
-    border-radius:12px;
+    border-radius:15px;
 
 }
 
