@@ -96,7 +96,9 @@ async function aktifkanKamera() {
 
             video: {
 
-                facingMode: "user"
+                facingMode: {
+                    ideal: "user"
+                }
 
             },
 
@@ -109,6 +111,9 @@ async function aktifkanKamera() {
         video.srcObject = stream;
 
         await video.play();
+
+        // Live Camera Mirror
+        video.style.transform = "scaleX(-1)";
 
         document.getElementById("status").innerHTML =
             "🟢 Kamera Aktif";
@@ -147,18 +152,42 @@ function ambilFoto() {
     }
 
     canvas.width = video.videoWidth;
-
     canvas.height = video.videoHeight;
 
     const ctx = canvas.getContext("2d");
 
-    ctx.drawImage(video, 0, 0);
+    // Bersihkan canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    fotoBase64 = canvas.toDataURL("image/jpeg", 0.9);
+    // Mirror hasil foto
+    ctx.save();
 
+    ctx.translate(canvas.width, 0);
+
+    ctx.scale(-1, 1);
+
+    ctx.drawImage(
+        video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    ctx.restore();
+
+    // Simpan hasil mirror
+    fotoBase64 = canvas.toDataURL(
+        "image/jpeg",
+        0.9
+    );
+
+    // Preview mirror
     preview.src = fotoBase64;
 
     preview.style.display = "block";
+
+    preview.style.transform = "none";
 
     document.getElementById("status").innerHTML =
         "📷 Foto berhasil diambil";
@@ -178,6 +207,8 @@ function resetFoto() {
     preview.src = "";
 
     preview.style.display = "none";
+
+    preview.style.transform = "none";
 
     document.getElementById("status").innerHTML =
         "🟢 Siap mengambil foto";
