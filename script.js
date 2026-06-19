@@ -461,12 +461,16 @@ setTimeout(function(){
 
     catch (err) {
 
+    catch(err){
+
     hideLoading();
 
     console.log(err);
 
+    alert(err);
+
     status.innerHTML =
-        "❌ Gagal mengirim data.";
+        err.toString();
 
 }
 
