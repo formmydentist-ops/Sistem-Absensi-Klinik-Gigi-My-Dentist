@@ -269,6 +269,8 @@ async function kirimAbsen() {
 
     document.getElementById("btnAbsen").innerHTML =
         "⏳ Menyimpan...";
+    
+    showLoading("📤 Mengupload foto...");
 
     status.innerHTML =
         "⏳ Mengirim absensi...";
@@ -309,32 +311,44 @@ async function kirimAbsen() {
 
         if (hasil.success) {
 
-            status.innerHTML =
-                "✅ " + hasil.message;
+    showLoading("✅ Absensi berhasil");
 
-            resetFoto();
+    status.innerHTML =
+        "✅ " + hasil.message;
 
-            document.getElementById("nama").selectedIndex = 0;
+    resetFoto();
 
-        }
+    document.getElementById("nama").selectedIndex = 0;
+
+    setTimeout(function(){
+
+        hideLoading();
+
+    },2000);
+
+}
 
         else {
 
-            status.innerHTML =
-                "❌ " + hasil.message;
+    hideLoading();
 
-        }
+    status.innerHTML =
+        "❌ " + hasil.message;
+
+}
 
     }
 
     catch (err) {
 
-        console.log(err);
+    hideLoading();
 
-        status.innerHTML =
-            "❌ Gagal mengirim data.";
+    console.log(err);
 
-    }
+    status.innerHTML =
+        "❌ Gagal mengirim data.";
+
+}
 
     document.getElementById("btnAbsen").disabled = false;
 
