@@ -216,6 +216,24 @@ function resetFoto() {
 }
 
 // =====================================
+// LOADING
+// =====================================
+
+function showLoading(text = "Mengupload foto...") {
+
+    document.getElementById("loading").style.display = "flex";
+
+    document.getElementById("loadingText").innerHTML = text;
+
+}
+
+function hideLoading() {
+
+    document.getElementById("loading").style.display = "none";
+
+}
+
+// =====================================
 // ABSEN
 // =====================================
 
