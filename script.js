@@ -190,7 +190,9 @@ function ambilFoto() {
     preview.style.transform = "none";
 
     document.getElementById("status").innerHTML =
-        "📷 Foto berhasil diambil";
+    "📷 Foto berhasil diambil";
+    
+    cekForm();
 
 }
 
@@ -212,6 +214,42 @@ function resetFoto() {
 
     document.getElementById("status").innerHTML =
         "🟢 Siap mengambil foto";
+    
+    cekForm();
+
+}
+
+// =====================================
+// CEK FORM
+// =====================================
+
+function cekForm() {
+
+    const nama =
+        document.getElementById("nama").value;
+
+    const btn =
+        document.getElementById("btnAbsen");
+
+    if (nama !== "" && fotoBase64 !== "") {
+
+        btn.disabled = false;
+
+        btn.style.opacity = "1";
+
+        btn.style.cursor = "pointer";
+
+    }
+
+    else {
+
+        btn.disabled = true;
+
+        btn.style.opacity = "0.5";
+
+        btn.style.cursor = "not-allowed";
+
+    }
 
 }
 
@@ -398,6 +436,10 @@ window.onload = async function () {
 
     document.getElementById("btnReset").onclick =
         resetFoto;
+    document.getElementById("nama").onchange =
+    cekForm;
+    
+    cekForm();
 
     document.getElementById("btnAbsen").onclick =
         kirimAbsen;
