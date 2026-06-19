@@ -244,6 +244,20 @@ button{
 }
 
 /* ==========================
+   BUTTON DISABLED
+========================== */
+
+button:disabled{
+
+    opacity:.5;
+
+    cursor:not-allowed;
+
+    filter:grayscale(100%);
+
+}
+
+/* ==========================
    LOADING
 ========================== */
 
