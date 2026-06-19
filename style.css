@@ -24,24 +24,23 @@ body{
 .container{
 
     width:100%;
-
-    max-width:420px;
+    max-width:430px;
 
     background:#ffffff;
 
     border-radius:20px;
 
-    padding:25px;
+    padding:20px;
 
-    box-shadow:0 10px 30px rgba(0,0,0,.15);
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
 
 }
 
 .logo{
 
-    font-size:45px;
-
     text-align:center;
+
+    font-size:50px;
 
 }
 
@@ -51,9 +50,9 @@ h1{
 
     color:#009688;
 
-    margin-top:10px;
+    margin:10px 0 15px 0;
 
-    margin-bottom:15px;
+    font-size:28px;
 
 }
 
@@ -63,7 +62,7 @@ h1{
 
     color:#666;
 
-    font-size:16px;
+    font-size:15px;
 
 }
 
@@ -73,7 +72,7 @@ h1{
 
     color:#333;
 
-    font-size:30px;
+    font-size:32px;
 
     font-weight:bold;
 
@@ -89,13 +88,23 @@ select{
 
     padding:14px;
 
-    border-radius:10px;
+    border:1px solid #d5d5d5;
 
-    border:1px solid #cccccc;
+    border-radius:10px;
 
     font-size:16px;
 
+    background:#fff;
+
+    outline:none;
+
     margin-bottom:20px;
+
+}
+
+select:focus{
+
+    border-color:#009688;
 
 }
 
@@ -103,11 +112,11 @@ select{
 
     width:100%;
 
+    background:#000;
+
     border-radius:15px;
 
     overflow:hidden;
-
-    background:#000;
 
 }
 
@@ -117,15 +126,29 @@ video{
 
     display:block;
 
+    object-fit:cover;
+
+    background:#000;
+
+}
+
+canvas{
+
+    display:none;
+
 }
 
 #preview{
 
     width:100%;
 
+    display:none;
+
     margin-top:15px;
 
     border-radius:15px;
+
+    object-fit:cover;
 
 }
 
@@ -135,7 +158,7 @@ video{
 
     gap:10px;
 
-    margin-top:20px;
+    margin-top:15px;
 
 }
 
@@ -151,15 +174,23 @@ button{
 
     border-radius:12px;
 
-    padding:16px;
+    padding:15px;
 
-    font-size:18px;
+    font-size:17px;
+
+    font-weight:bold;
+
+    color:#fff;
 
     cursor:pointer;
 
-    color:white;
+    transition:0.2s;
 
-    transition:.2s;
+}
+
+button:active{
+
+    transform:scale(.98);
 
 }
 
@@ -183,7 +214,7 @@ button{
 
 #btnReset:hover{
 
-    background:#5d5d5d;
+    background:#616161;
 
 }
 
@@ -209,15 +240,23 @@ button{
 
     text-align:center;
 
-    font-size:18px;
+    font-size:17px;
 
     font-weight:bold;
 
     color:#009688;
 
+    min-height:25px;
+
 }
 
 @media(max-width:480px){
+
+    body{
+
+        padding:10px;
+
+    }
 
     .container{
 
@@ -225,9 +264,21 @@ button{
 
     }
 
-    .jam{
+    .logo{
+
+        font-size:42px;
+
+    }
+
+    h1{
 
         font-size:24px;
+
+    }
+
+    .jam{
+
+        font-size:28px;
 
     }
 
