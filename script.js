@@ -59,6 +59,10 @@ async function loadKaryawan() {
 
             select.appendChild(option);
 
+            updateButton();
+            
+            cekForm();
+
         });
 
     }
@@ -343,13 +347,16 @@ function resetForm() {
 
     document.getElementById("preview").style.display = "none";
 
-    document.getElementById("btnAbsen").disabled = false;
+    document.getElementById("btnAbsen").disabled = true;
 
     document.getElementById("btnAbsen").innerHTML =
         "✅ ABSEN";
 
     document.getElementById("status").innerHTML =
         "🟢 Siap Absen";
+    updateButton();
+    
+    cekForm();
 
 }
 
@@ -429,6 +436,8 @@ async function kirimAbsen() {
         const hasil =
             await response.json();
 
+        console.log(hasil);
+
         if (hasil.success) {
 
     showLoading("✅ Absensi berhasil");
@@ -494,8 +503,13 @@ window.onload = async function () {
 
     document.getElementById("btnReset").onclick =
         resetFoto;
-    document.getElementById("nama").onchange =
-    updateButton;
+    document.getElementById("nama").onchange = function(){
+
+    updateButton();
+
+    cekForm();
+
+};
 
 updateButton();
 
