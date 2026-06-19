@@ -216,6 +216,116 @@ function resetFoto() {
 }
 
 // =====================================
+// ABSEN
+// =====================================
+
+async function kirimAbsen() {
+
+    const nama = document.getElementById("nama").value;
+
+    const status = document.getElementById("status");
+
+    if (nama == "") {
+
+        alert("Pilih karyawan terlebih dahulu.");
+
+        return;
+
+    }
+
+    if (fotoBase64 == "") {
+
+        alert("Silakan ambil foto terlebih dahulu.");
+
+        return;
+
+    }
+
+    const option =
+        document.getElementById("nama").selectedOptions[0];
+
+    const jabatan =
+        option.dataset.jabatan;
+
+    document.getElementById("btnAbsen").disabled = true;
+
+    document.getElementById("btnAbsen").innerHTML =
+        "⏳ Menyimpan...";
+
+    status.innerHTML =
+        "⏳ Mengirim absensi...";
+
+    try {
+
+        const response = await fetch(
+
+            CONFIG.API_URL,
+
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                    "application/json"
+
+                },
+
+                body: JSON.stringify({
+
+                    nama: nama,
+
+                    jabatan: jabatan,
+
+                    foto: fotoBase64
+
+                })
+
+            }
+
+        );
+
+        const hasil =
+            await response.json();
+
+        if (hasil.success) {
+
+            status.innerHTML =
+                "✅ " + hasil.message;
+
+            resetFoto();
+
+            document.getElementById("nama").selectedIndex = 0;
+
+        }
+
+        else {
+
+            status.innerHTML =
+                "❌ " + hasil.message;
+
+        }
+
+    }
+
+    catch (err) {
+
+        console.log(err);
+
+        status.innerHTML =
+            "❌ Gagal mengirim data.";
+
+    }
+
+    document.getElementById("btnAbsen").disabled = false;
+
+    document.getElementById("btnAbsen").innerHTML =
+        "✅ ABSEN";
+
+}
+
+// =====================================
 // SAAT HALAMAN DIBUKA
 // =====================================
 
@@ -229,11 +339,14 @@ window.onload = async function () {
 
     await aktifkanKamera();
 
-    console.log("Window Loaded");
+    document.getElementById("btnFoto").onclick =
+        ambilFoto;
 
-    document.getElementById("btnFoto").onclick = ambilFoto;
+    document.getElementById("btnReset").onclick =
+        resetFoto;
 
-    document.getElementById("btnReset").onclick = resetFoto;
+    document.getElementById("btnAbsen").onclick =
+        kirimAbsen;
 
     document.getElementById("status").innerHTML =
         "🟢 Siap Absen";
