@@ -234,6 +234,30 @@ function hideLoading() {
 }
 
 // =====================================
+// RESET FORM
+// =====================================
+
+function resetForm() {
+
+    fotoBase64 = "";
+
+    document.getElementById("nama").selectedIndex = 0;
+
+    document.getElementById("preview").src = "";
+
+    document.getElementById("preview").style.display = "none";
+
+    document.getElementById("btnAbsen").disabled = false;
+
+    document.getElementById("btnAbsen").innerHTML =
+        "✅ ABSEN";
+
+    document.getElementById("status").innerHTML =
+        "🟢 Siap Absen";
+
+}
+
+// =====================================
 // ABSEN
 // =====================================
 
@@ -313,18 +337,16 @@ async function kirimAbsen() {
 
     showLoading("✅ Absensi berhasil");
 
-    status.innerHTML =
-        "✅ " + hasil.message;
+status.innerHTML =
+    "✅ " + hasil.message;
 
-    resetFoto();
+setTimeout(function(){
 
-    document.getElementById("nama").selectedIndex = 0;
+    hideLoading();
 
-    setTimeout(function(){
+    resetForm();
 
-        hideLoading();
-
-    },2000);
+},2000);
 
 }
 
