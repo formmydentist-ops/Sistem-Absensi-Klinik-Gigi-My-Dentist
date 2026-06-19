@@ -152,13 +152,38 @@ function ambilFoto() {
 
     const ctx = canvas.getContext("2d");
 
-    ctx.drawImage(video, 0, 0);
+// ukuran canvas mengikuti video
+canvas.width = video.videoWidth;
+canvas.height = video.videoHeight;
 
-    fotoBase64 = canvas.toDataURL("image/jpeg", 0.9);
+// bersihkan canvas
+ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    preview.src = fotoBase64;
+// mirror horizontal
+ctx.save();
 
-    preview.style.display = "block";
+ctx.translate(canvas.width, 0);
+
+ctx.scale(-1, 1);
+
+// gambar video ke canvas
+ctx.drawImage(
+    video,
+    0,
+    0,
+    canvas.width,
+    canvas.height
+);
+
+ctx.restore();
+
+// simpan hasil mirror
+fotoBase64 = canvas.toDataURL("image/jpeg", 0.85);
+
+// tampilkan preview
+preview.src = fotoBase64;
+
+preview.style.display = "block";
 
     document.getElementById("status").innerHTML =
         "📷 Foto berhasil diambil";
