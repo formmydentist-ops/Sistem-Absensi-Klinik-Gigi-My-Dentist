@@ -416,8 +416,6 @@ formData.append("jabatan", jabatan);
 
 formData.append("foto", fotoBase64);
 
-console.log("API:", CONFIG.API_URL);
-
 const response = await fetch(
 
     CONFIG.API_URL,
