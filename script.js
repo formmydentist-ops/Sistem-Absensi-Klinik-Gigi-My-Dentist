@@ -370,7 +370,7 @@ async function kirimAbsen() {
 
     const status = document.getElementById("status");
 
-    if (nama === "") {
+    if (nama == "") {
 
         alert("Pilih karyawan terlebih dahulu.");
 
@@ -378,7 +378,7 @@ async function kirimAbsen() {
 
     }
 
-    if (fotoBase64 === "") {
+    if (fotoBase64 == "") {
 
         alert("Silakan ambil foto terlebih dahulu.");
 
@@ -392,27 +392,17 @@ async function kirimAbsen() {
     const jabatan =
         option.dataset.jabatan;
 
-    const btnAbsen =
-        document.getElementById("btnAbsen");
+    document.getElementById("btnAbsen").disabled = true;
 
-    btnAbsen.disabled = true;
-
-    btnAbsen.innerHTML = "⏳ Menyimpan...";
-
+    document.getElementById("btnAbsen").innerHTML =
+        "⏳ Menyimpan...";
+    
     showLoading("📤 Mengupload foto...");
 
     status.innerHTML =
         "⏳ Mengirim absensi...";
 
     try {
-
-        const formData = new FormData();
-
-        formData.append("nama", nama);
-
-        formData.append("jabatan", jabatan);
-
-        formData.append("foto", fotoBase64);
 
         const response = await fetch(
 
@@ -422,60 +412,74 @@ async function kirimAbsen() {
 
                 method: "POST",
 
-                body: formData
+                headers: {
+
+                    "Content-Type":
+                    "application/json"
+
+                },
+
+                body: JSON.stringify({
+
+                    nama: nama,
+
+                    jabatan: jabatan,
+
+                    foto: fotoBase64
+
+                })
 
             }
 
         );
 
-        const hasil = await response.json();
+        const hasil =
+            await response.json();
 
         console.log(hasil);
 
         if (hasil.success) {
 
-            showLoading("✅ Absensi berhasil");
+    showLoading("✅ Absensi berhasil");
 
-            status.innerHTML =
-                "✅ " + hasil.message;
+status.innerHTML =
+    "✅ " + hasil.message;
 
-            setTimeout(function () {
+setTimeout(function(){
 
-                hideLoading();
+    hideLoading();
 
-                resetForm();
+    resetForm();
 
-            }, 2000);
+},2000);
 
-        }
+}
 
         else {
 
-            hideLoading();
+    hideLoading();
 
-            status.innerHTML =
-                "❌ " + hasil.message;
+    status.innerHTML =
+        "❌ " + hasil.message;
 
-        }
+}
 
     }
 
     catch (err) {
 
-        hideLoading();
+    hideLoading();
 
-        console.log(err);
+    console.log(err);
 
-        alert(err);
+    status.innerHTML =
+        "❌ Gagal mengirim data.";
 
-        status.innerHTML =
-            "❌ " + err.toString();
+}
 
-    }
+    document.getElementById("btnAbsen").disabled = false;
 
-    btnAbsen.disabled = false;
-
-    btnAbsen.innerHTML =
+    document.getElementById("btnAbsen").innerHTML =
         "✅ ABSEN";
 
 }
