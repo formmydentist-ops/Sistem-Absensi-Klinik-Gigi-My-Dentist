@@ -426,8 +426,6 @@ const response = await fetch(
 
         method: "POST",
 
-        redirect: "follow",
-
         body: formData
 
     }
