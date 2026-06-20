@@ -404,34 +404,34 @@ async function kirimAbsen() {
 
     try {
 
-        const response = await fetch(
+// ==========================
+// KIRIM FORMDATA
+// ==========================
 
-            CONFIG.API_URL,
+const formData = new FormData();
 
-            {
+formData.append("nama", nama);
 
-                method: "POST",
+formData.append("jabatan", jabatan);
 
-                headers: {
+formData.append("foto", fotoBase64);
 
-                    "Content-Type":
-                    "application/json"
+const response = await fetch(
 
-                },
+    CONFIG.API_URL,
 
-                body: JSON.stringify({
+    {
 
-                    nama: nama,
+        method: "POST",
 
-                    jabatan: jabatan,
+        body: formData
 
-                    foto: fotoBase64
+    }
 
-                })
+);
 
-            }
-
-        );
+const hasil =
+    await response.json();
 
         const hasil =
             await response.json();
