@@ -433,9 +433,6 @@ const response = await fetch(
 const hasil =
     await response.json();
 
-        const hasil =
-            await response.json();
-
         console.log(hasil);
 
         if (hasil.success) {
